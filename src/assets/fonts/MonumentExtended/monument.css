@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Monument Extended';
+    src: url('MonumentExtended-Ultrabold.eot');
+    src: url('MonumentExtended-Ultrabold.eot?#iefix') format('embedded-opentype'),
+        url('MonumentExtended-Ultrabold.woff2') format('woff2'),
+        url('MonumentExtended-Ultrabold.woff') format('woff'),
+        url('MonumentExtended-Ultrabold.ttf') format('truetype'),
+        url('MonumentExtended-Ultrabold.svg#MonumentExtended-Ultrabold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Monument Extended';
+    src: url('MonumentExtended-Regular.eot');
+    src: url('MonumentExtended-Regular.eot?#iefix') format('embedded-opentype'),
+        url('MonumentExtended-Regular.woff2') format('woff2'),
+        url('MonumentExtended-Regular.woff') format('woff'),
+        url('MonumentExtended-Regular.ttf') format('truetype'),
+        url('MonumentExtended-Regular.svg#MonumentExtended-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

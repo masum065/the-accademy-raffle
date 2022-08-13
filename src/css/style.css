@@ -1,0 +1,61 @@
+@font-face {
+  font-family: chartert;
+  src: url(../assets/fonts/chartert.otf);
+}
+@font-face {
+  font-family: Colfax;
+  font-weight: 900;
+  src: url(../assets/fonts/colfax-font/Colfax-Black.otf);
+}
+@font-face {
+  font-family: Colfax;
+  font-weight: 700;
+  src: url(../assets/fonts/colfax-font/Colfax-Bold.otf);
+}
+@font-face {
+  font-family: Colfax;
+  font-weight: 300;
+  src: url(../assets/fonts/colfax-font/Colfax-Light.otf);
+}
+@font-face {
+  font-family: Colfax;
+  font-weight: 500;
+  src: url(../assets/fonts/colfax-font/Colfax-Medium.otf);
+}
+@font-face {
+  font-family: Colfax;
+  font-weight: 400;
+  src: url(../assets/fonts/colfax-font/Colfax-Regular.otf);
+}
+@font-face {
+  font-family: Colfax;
+  font-weight: 100;
+  src: url(../assets/fonts/colfax-font/Colfax-Thin.otf);
+}
+
+body {
+  background-color: #1e1e1e;
+  color: #fff;
+  font-family: Colfax;
+  font-weight: 400;
+}
+a {
+  text-decoration: none !important;
+  color: #fff !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'chartert' !important;
+  color: #fff;
+}
+
+button {
+  font-family: 'chartert' !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
