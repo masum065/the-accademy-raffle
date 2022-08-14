@@ -70,7 +70,7 @@ export default function RafflesProvider({ connection, children }: any) {
   const wallet = useWallet();
 
   const api = useApi();
-
+  const [loading, setLoading] = useState(true);
   // console.log(RafflesIdl);
   // confirmed provider
   const provider = useMemo(() => {
@@ -196,7 +196,7 @@ export default function RafflesProvider({ connection, children }: any) {
 
   const fetchRaffles = useCallback(async () => {
     if (!rafflesProgram || !project) return;
-
+    setLoading(true);
     const rafflesAccounts = await rafflesProgram.account.raffle.all([
       {
         memcmp: {
@@ -267,6 +267,7 @@ export default function RafflesProvider({ connection, children }: any) {
         .sort((a: any, b: any) => b.end.getTime() - a.end.getTime()),
     ];
     setRaffles(raffles as any);
+    setLoading(false);
   }, [rafflesProgram, project]);
   useEffect(() => {
     fetchRaffles();
@@ -577,6 +578,7 @@ export default function RafflesProvider({ connection, children }: any) {
         refreshRaffle,
         fetchMyEntry,
         buyTickets,
+        loading,
       }}
     >
       {children}

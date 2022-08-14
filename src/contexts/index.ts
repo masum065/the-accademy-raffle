@@ -11,6 +11,7 @@ export const RaffleContext = createContext<IRaffleContext>({
   refreshRaffle: () => new Promise(() => {}),
   fetchMyEntry: () => new Promise(() => {}),
   buyTickets: () => new Promise(() => {}),
+  loading: {},
 });
 
 export interface IRaffleContext {
@@ -23,6 +24,7 @@ export interface IRaffleContext {
   refreshRaffle: (key: PublicKey) => Promise<Raffle | undefined>;
   fetchMyEntry: (key: PublicKey) => Promise<Participant | undefined>;
   buyTickets: (key: PublicKey, tickets: number) => Promise<void>;
+  loading: {};
 }
 
 export interface Project {

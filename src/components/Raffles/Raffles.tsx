@@ -1,13 +1,21 @@
-import { Box, Button, ButtonGroup, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  Skeleton,
+  Typography,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Raffle } from '../../contexts';
 import useRaffles from '../../hooks/useRaffles';
 import { PublicLayout } from '../../layout/PublicLayout';
 import { RaffleCard } from './Card/Card';
+import { CustomMessage } from './CustomMessage/CustomMessage';
 
 export const Raffles = () => {
-  const { raffles } = useRaffles();
+  const { raffles, loading } = useRaffles();
   const [activeTab, setActiveTab] = useState(1);
   const [opened, setOpened] = useState<Raffle[]>([]);
   const [closed, setClosed] = useState<Raffle[]>([]);
@@ -84,20 +92,64 @@ export const Raffles = () => {
 
           <Box sx={{ display: activeTab === 1 ? 'block' : 'none' }}>
             <Grid container spacing={3}>
-              {opened.map((raffle, index) => (
-                <Grid item md={6} lg={4} key={index}>
-                  <RaffleCard raffle={raffle} />
-                </Grid>
-              ))}
+              {!opened.length && loading ? (
+                [...Array(6)].map((s, i) => (
+                  <Grid item lg={4} key={i}>
+                    <Skeleton
+                      sx={{
+                        height: '400px',
+                        transform: 'scale(1)',
+                        width: '100%',
+                        borderRadius: '0px',
+                        background: 'rgb(24 21 18)',
+                      }}
+                      animation='wave'
+                    />
+                  </Grid>
+                ))
+              ) : opened.length ? (
+                opened.map((raffle, index) => (
+                  <Grid item md={6} lg={4} key={index}>
+                    <RaffleCard raffle={raffle} />
+                  </Grid>
+                ))
+              ) : (
+                <CustomMessage message='No Raffles Found' />
+              )}
             </Grid>
           </Box>
           <Box sx={{ display: activeTab === 2 ? 'block' : 'none' }}>
             <Grid container spacing={3}>
-              {closed.map((raffle, index) => (
+              {/* {closed.map((raffle, index) => (
                 <Grid item md={6} lg={4} key={index}>
                   <RaffleCard raffle={raffle} />
                 </Grid>
-              ))}
+              ))} */}
+
+              {!closed.length && loading ? (
+                [...Array(6)].map((s, i) => (
+                  <Grid item lg={4} key={i}>
+                    <Skeleton
+                      sx={{
+                        height: '400px',
+                        transform: 'scale(1)',
+                        width: '100%',
+                        borderRadius: '0px',
+                        background: 'rgb(24 21 18)',
+                      }}
+                      animation='wave'
+                    />
+                  </Grid>
+                ))
+              ) : closed.length ? (
+                closed.map((raffle, index) => (
+                  <Grid item md={6} lg={4} key={index}>
+                    <RaffleCard raffle={raffle} />
+                  </Grid>
+                ))
+              ) : (
+                <CustomMessage message='No Raffles Found' />
+              )}
             </Grid>
           </Box>
         </Container>
