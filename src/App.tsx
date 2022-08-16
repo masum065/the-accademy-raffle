@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AppOrig from './App';
 import './assets/fonts/MonumentExtended/monument.css';
 import './assets/fonts/pixeboy/pixeboy.css';
+import { EventDetails } from './components/Profile/EventDetails/EventDetails';
 import { Profile } from './components/Profile/Profile';
 import RaffleDetailsPage from './components/Raffles/Details/Details';
 import { Raffles } from './components/Raffles/Raffles';
@@ -56,6 +57,7 @@ const App = () => {
                   <Route path='/auctions' element={<Auctions />} />
                   <Route path='/' element={<Raffles />} />
                   <Route path='/profile' element={<Profile />} />
+                  <Route path='/event-details' element={<EventDetails />} />
                   <Route path='/wallet' element={<AppOrig />} />
                   <Route
                     path='/raffle-details/:key'

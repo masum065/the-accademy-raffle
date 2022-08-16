@@ -43,7 +43,7 @@ export const Profile = () => {
   return (
     <PublicLayout>
       <Container maxWidth='xl'>
-        <Grid container spacing={3} sx={{ mt: 3 }}>
+        <Grid container spacing={3} sx={{ py: 3 }}>
           <Grid item lg={3}>
             <Box
               sx={{
