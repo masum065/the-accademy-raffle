@@ -8,11 +8,13 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import numeral from 'numeral';
 import { useEffect, useState } from 'react';
 import { PublicLayout } from '../../layout/PublicLayout';
+import { RaffleProfile } from '../Raffles/MyProfile/RaffleProfile';
 import { EventCard } from './Event/EventCard';
 
 export const Profile = () => {
   const { publicKey, connected } = useWallet();
   const [bailBalance, setBailBalance] = useState(0);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
 
   const getTokenBalanceAndPrice = async () => {
     try {
@@ -112,7 +114,9 @@ export const Profile = () => {
                   },
                 }}
               >
-                <Button>My Profile</Button>
+                <Button onClick={() => setOpenProfileModal(!openProfileModal)}>
+                  My Profile
+                </Button>
                 <Button>Saved Items</Button>
               </Box>
             </Box>
@@ -153,6 +157,11 @@ export const Profile = () => {
           </Grid>
         </Grid>
       </Container>
+
+      <RaffleProfile
+        open={openProfileModal}
+        onClose={() => setOpenProfileModal(false)}
+      />
     </PublicLayout>
   );
 };
