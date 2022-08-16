@@ -1,8 +1,8 @@
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Container, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import { WalletMultiButton } from '@solana/wallet-adapter-material-ui';
 import { Link } from 'react-router-dom';
-
 const navItems = [
   {
     name: 'Home',
@@ -65,6 +65,17 @@ export const Navbar = () => {
                     {nav.name}
                   </Link>
                 ))}
+              </Box>
+              <Box
+                component={Link}
+                to='/profile'
+                sx={{
+                  borderRadius: '50%',
+                  border: '2px solid #fff',
+                  '& svg': { height: '1.2em', width: '1.2em' },
+                }}
+              >
+                <PersonOutlineIcon />
               </Box>
 
               <Box

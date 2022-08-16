@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AppOrig from './App';
 import './assets/fonts/MonumentExtended/monument.css';
 import './assets/fonts/pixeboy/pixeboy.css';
+import { Profile } from './components/Profile/Profile';
 import RaffleDetailsPage from './components/Raffles/Details/Details';
 import { Raffles } from './components/Raffles/Raffles';
 import { RPC_CONFIG } from './config';
@@ -54,6 +55,7 @@ const App = () => {
                 <Routes>
                   <Route path='/auctions' element={<Auctions />} />
                   <Route path='/' element={<Raffles />} />
+                  <Route path='/profile' element={<Profile />} />
                   <Route path='/wallet' element={<AppOrig />} />
                   <Route
                     path='/raffle-details/:key'
