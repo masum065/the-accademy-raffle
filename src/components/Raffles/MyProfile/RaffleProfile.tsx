@@ -8,7 +8,7 @@ import useRaffles from '../../../hooks/useRaffles';
 import { MyProfile } from '../../MyProfile/MyProfile';
 import { MyEntries } from './MyEntries/MyEntries';
 
-const MONTHS = [
+export const MONTHS = [
   'January',
   'February',
   'March',

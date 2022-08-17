@@ -28,7 +28,7 @@ export const MyEntries = ({
           textAlign: 'center',
         }}
       >
-        My Entries
+        My Events
       </Typography>
       <Box
         sx={{
@@ -59,7 +59,7 @@ export const MyEntries = ({
                 <TableCell>Name</TableCell>
                 <TableCell>Total Tickets</TableCell>
                 <TableCell>My Tickets</TableCell>
-                <TableCell>$KLIM Spent</TableCell>
+                <TableCell>$mDOT Spent</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>End Date</TableCell>
               </TableRow>
@@ -126,7 +126,7 @@ export const MyEntries = ({
               fontSize: '20px',
             }}
           >
-            No raffle entries found!
+            No event entries found!
           </Typography>
         )}
       </Box>

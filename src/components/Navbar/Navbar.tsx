@@ -61,7 +61,7 @@ export const Navbar = () => {
 
                 <Link to='/'>Home</Link>
                 <Link to='/events'>Events</Link>
-                <Link to='/raffles'>Demo</Link>
+                {/* <Link to='/raffles'>Demo</Link> */}
               </Box>
               <Box
                 onClick={() => setOpenProfileModal(!openProfileModal)}

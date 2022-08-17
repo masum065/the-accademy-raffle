@@ -54,13 +54,13 @@ const customErrorMessage = (err: any) => {
   let code = getCustomErrorCode(err);
   switch (code) {
     case '0x1770':
-      return 'Total winners limit exceeded!';
+      return 'Total user limit exceeded!';
     case '0x1771':
-      return 'You cannot buy more tickets, limit reached!';
+      return 'You cannot get more tickets, limit reached!';
     case '0x1772':
-      return 'Raffle is not started yet!!';
+      return 'Event is not started yet!!';
     case '0x1773':
-      return 'Raffle is not ended yet!!';
+      return 'Event is not ended yet!!';
     default:
       return 'Unexpected Error!';
   }
@@ -439,21 +439,21 @@ export default function RafflesProvider({ connection, children }: any) {
       console.log('rafflekey', rafflekey.toString(), tickets);
       if (!provider || !rafflesProgram || !project || !wallet.publicKey) return;
 
-      const buyTicketsToast = toast.loading(`Buying ${tickets} tickets`);
+      const buyTicketsToast = toast.loading(`Joining ${tickets} tickets`);
 
       const raffleAccount = await fetchRaffle(rafflekey);
 
       console.log({ raffleAccount });
       if (!raffleAccount) {
         toast.update(buyTicketsToast, {
-          render: 'Raffle Not Found.',
+          render: 'Event is Not Found.',
           type: 'error',
           isLoading: false,
           closeOnClick: true,
           closeButton: true,
           autoClose: 4000,
         });
-        throw Error('Raffle Not Found.');
+        throw Error('Event Not Found.');
       }
 
       const [raffle] = await PublicKey.findProgramAddress(
@@ -511,7 +511,7 @@ export default function RafflesProvider({ connection, children }: any) {
           }
         } catch (e) {
           toast.update(buyTicketsToast, {
-            render: "You don't have enough tokens to buy tickets.",
+            render: "You don't have enough tokens to Join.",
             type: 'error',
             isLoading: false,
             closeOnClick: true,

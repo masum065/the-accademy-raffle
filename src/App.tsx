@@ -59,7 +59,10 @@ const App = () => {
                   <Route path='/auctions' element={<Auctions />} />
                   <Route path='/raffles' element={<Raffles />} />
                   <Route path='/events' element={<Profile />} />
-                  <Route path='/event-details' element={<EventDetails />} />
+                  <Route
+                    path='/event-details/:key'
+                    element={<EventDetails />}
+                  />
                   <Route path='/my-profile' element={<MyProfile />} />
                   <Route path='/' element={<Home />} />
                   <Route path='/wallet' element={<AppOrig />} />

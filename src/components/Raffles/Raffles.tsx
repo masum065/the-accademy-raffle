@@ -43,7 +43,7 @@ export const Raffles = () => {
           textTransform: 'uppercase',
         }}
       >
-        Raffles
+        Events
       </Typography>
 
       <Box>
@@ -83,7 +83,7 @@ export const Raffles = () => {
                     variant={activeTab === 2 ? 'contained' : 'outlined'}
                     fullWidth
                   >
-                    Complete
+                    Closed
                   </Button>
                 </ButtonGroup>
               </Box>
@@ -114,18 +114,12 @@ export const Raffles = () => {
                   </Grid>
                 ))
               ) : (
-                <CustomMessage message='No Raffles Found' />
+                <CustomMessage message='No Events Found' />
               )}
             </Grid>
           </Box>
           <Box sx={{ display: activeTab === 2 ? 'block' : 'none' }}>
             <Grid container spacing={3}>
-              {/* {closed.map((raffle, index) => (
-                <Grid item md={6} lg={4} key={index}>
-                  <RaffleCard raffle={raffle} />
-                </Grid>
-              ))} */}
-
               {!closed.length && loading ? (
                 [...Array(6)].map((s, i) => (
                   <Grid item lg={4} key={i}>
@@ -148,7 +142,7 @@ export const Raffles = () => {
                   </Grid>
                 ))
               ) : (
-                <CustomMessage message='No Raffles Found' />
+                <CustomMessage message='No Events Found' />
               )}
             </Grid>
           </Box>

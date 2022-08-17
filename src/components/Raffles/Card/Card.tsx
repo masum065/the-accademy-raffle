@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Raffle } from '../../../contexts';
 import { FILE_URL } from '../../../hooks/useApi';
+import { MONTHS } from '../MyProfile/RaffleProfile';
 
 export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
   const [timeToLock, setTimeToLock] = useState('0d 0h 0m');
@@ -33,6 +34,7 @@ export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
     return () => clearInterval(interval);
   }, [date]);
 
+  console.log(raffle);
   return (
     <Box
       sx={{
@@ -42,33 +44,74 @@ export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
         backgroundColor: 'rgb(0 0 0 / 56%)',
       }}
     >
-      <Box>
-        <Link to={`./raffle-details/${raffle?.key.toString()}`}>
+      <Box sx={{ position: 'relative' }}>
+        <Link to={`/event-details/${raffle?.key.toString()}`}>
           <Box
             component='img'
             sx={{ maxWidth: '100%', p: 1.3, borderRadius: '0' }}
             src={FILE_URL + raffle.image}
           />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              fontSize: '20px',
+              paddingBottom: '5px',
+              px: 2,
+              position: 'absolute',
+              flexDirection: 'column',
+              gap: 0.5,
+              left: '0',
+              top: '0px',
+              width: '100%',
+
+              paddingTop: '15px',
+            }}
+          >
+            <Box
+              sx={{
+                background: '#000000ad',
+                backdropFilter: 'blur(10px)',
+                padding: '3px 15px',
+              }}
+            >
+              {raffle.end.getDate()} {MONTHS[raffle.end.getMonth()]}{' '}
+              {raffle.end.getFullYear()}
+            </Box>
+            <Box
+              sx={{
+                background: '#000000ad',
+                backdropFilter: 'blur(10px)',
+                padding: '3px 15px',
+              }}
+            >
+              <Box component='b' sx={{ fontSize: '24px' }}>
+                {raffle.tickets}
+              </Box>{' '}
+              Entered
+            </Box>
+          </Box>
         </Link>
-        {/* <div>{!raffle.isClosed ? timeToLock : ''}</div> */}
       </Box>
       <Box
         sx={{
           px: 2,
-          pt: 3,
+          // pt: 3,
           pb: 2,
-          minHeight: '225px',
+          // minHeight: '225px',
           display: 'flex',
           justifyContent: 'space-between',
           flexDirection: 'column',
         }}
       >
-        <Link to={`./raffle-details/${raffle?.key.toString()}`}>
+        <Link to={`/event-details/${raffle?.key.toString()}`}>
           <Typography
             sx={{
               textAlign: 'center',
               fontSize: '28px',
               lineHeight: 1,
+              mt: 0.5,
               mb: 1,
               fontFamily: 'chartert',
               fontWeight: 'bold',
@@ -79,23 +122,7 @@ export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
         </Link>
         <Box>
           <Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Box>
-                <b>{raffle.tickets}</b> Sold
-              </Box>
-              <Box>
-                <b>{raffle.winners}</b> winners
-              </Box>
-            </Box>
             <Box sx={{ textAlign: 'center', mt: 1, mb: 2 }}>
-              {/* <p>{!raffle.isClosed ? 'Raffle Open' : ' Raffle Closed!'}</p> */}
-
               {!raffle.isClosed ? (
                 <Typography>
                   Ends in:{' '}
@@ -113,12 +140,12 @@ export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
                     padding: '5px',
                   }}
                 >
-                  Raffle Is Closed!
+                  Event Is Closed!
                 </Typography>
               )}
             </Box>
           </Box>
-          <Link to={`./raffle-details/${raffle?.key.toString()}`}>
+          <Link to={`/event-details/${raffle?.key.toString()}`}>
             <Button
               variant='contained'
               fullWidth
@@ -128,7 +155,7 @@ export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
                 letterSpacing: '2px',
               }}
             >
-              {!raffle.isClosed ? 'Join Raffle' : 'View Winners'}
+              {!raffle.isClosed ? 'More Info' : 'View Winners'}
             </Button>
           </Link>
         </Box>

@@ -7,19 +7,76 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { useEffect, useState } from 'react';
+import { useWalletDialog } from '@solana/wallet-adapter-material-ui';
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
+import { PublicKey } from '@solana/web3.js';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router';
+import { toast } from 'react-toastify';
+import useApi, { FILE_URL } from '../../../hooks/useApi';
+import useRaffles from '../../../hooks/useRaffles';
 import { PublicLayout } from '../../../layout/PublicLayout';
+import { MONTHS } from '../../Raffles/MyProfile/RaffleProfile';
 
 export const EventDetails = () => {
   const [saved, setSaved] = useState(false);
+  const { key } = useParams();
+  const { fetchRaffle, buyTickets, fetchMyEntry } = useRaffles();
+  const wallet = useAnchorWallet();
+  const walletDialog = useWalletDialog();
+  const api = useApi();
+
+  const [loading, setLoading] = useState<any>(true);
+  const [raffleDetails, setRaffleDetails] = useState<any>(null);
   const [timeToLock, setTimeToLock] = useState('0d 0h 0m 0s');
   const [date, setDate] = useState(new Date());
+  const [winners, setWinners] = useState<any[]>([]);
+  const [raffle, setRaffle] = useState<any>(null);
+  const [quantity, setQuantity] = useState(1);
+  const [myEntry, setMyEntry] = useState<any | undefined>();
+
+  const fetchRaffleDetails = useCallback(async () => {
+    if (!key) return;
+    const data = await fetchRaffle(new PublicKey(key));
+    if (!data) return;
+    setRaffle(data);
+    setWinners(data.participants.filter((part) => part.isWon));
+    await api
+      .get('rafflesDetails/' + key)
+      .then((res) => setRaffleDetails(res.data))
+      .catch(console.error);
+    setLoading(false);
+  }, [key, fetchRaffle]);
 
   useEffect(() => {
-    const end_date = new Date('Tue Oct 4 2022 00:45:17');
+    fetchRaffleDetails();
+  }, [fetchRaffleDetails]);
+  useEffect(() => {
+    console.log({ winners, myEntry, raffle, raffleDetails });
+  }, [winners, myEntry, raffle, raffleDetails]);
+
+  const fetchMyEntryDetails = useCallback(async () => {
+    if (!key) return;
+    const data = await fetchMyEntry(new PublicKey(key));
+    if (!data) return;
+    setMyEntry(data);
+  }, [key, fetchMyEntry]);
+
+  useEffect(() => {
+    fetchMyEntryDetails();
+  }, [fetchMyEntryDetails]);
+
+  useEffect(() => {
+    if (!raffle) return;
     const now = date;
-    let milliseconds = end_date.getTime() - now.getTime();
+    const limit = raffle?.isStarted ? raffle?.end : raffle?.start;
+    let milliseconds = limit.getTime() - now.getTime();
     if (milliseconds < 0) {
+      if (raffle.isStarted) {
+        raffle.isClosed = true;
+      } else {
+        raffle.isStarted = true;
+      }
     } else {
       let seconds = milliseconds / 1000;
       let minutes = seconds / 60;
@@ -29,12 +86,79 @@ export const EventDetails = () => {
       minutes = Math.floor(minutes % 60);
       hours = Math.floor(hours % 24);
       setTimeToLock(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      if (raffle.isStarted) {
+        raffle.isClosed = false;
+      }
     }
+
     const interval = setInterval(() => {
-      setDate(new Date());
+      if (raffle) {
+        setDate(new Date());
+      }
     }, 1000);
     return () => clearInterval(interval);
-  }, [date]);
+  }, [raffle, date]);
+
+  const buyTikets = async () => {
+    if (!wallet?.publicKey) {
+      console.log('Wallet not connected!');
+      return walletDialog.setOpen(true);
+    }
+
+    // PROMPT FOR AMOUNT TO BUY
+    const data = await api
+      .get(`get_profile/${wallet?.publicKey.toString()}`)
+      .catch((e) => null);
+
+    // GETTING USER DISCORD ID
+    const discordId = data?.data?.discordId;
+
+    // CONDITIONAL CHECK FOR DISCORD ID
+    if (raffle.raffleType !== 'NFT' && !discordId) {
+      let id = prompt('Enter your discord id');
+      if (id && id.length > 0) {
+        // INSERTING ID INTO DB
+        api
+          .post('profile', {
+            discordId: id,
+            wallet_address: wallet?.publicKey?.toString(),
+          })
+          .then(async (res) => {
+            toast.success('Successfully added your discord ID!');
+          })
+          .catch((err) => toast.error(err.message));
+      }
+    }
+
+    await buyTickets(new PublicKey(key as any), quantity);
+    fetchRaffleDetails();
+  };
+
+  const anchorWallet = useAnchorWallet();
+
+  const isDisable = useMemo(
+    () => (wallet?.publicKey ? false : true),
+    [wallet?.publicKey]
+  );
+
+  if (!raffle)
+    return (
+      <Box
+        sx={{
+          fontSize: '40px',
+          textAlign: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          minHeight: '100vh',
+          fontWeight: 'bold',
+          display: 'flex',
+        }}
+      >
+        Loading...
+      </Box>
+    );
+
   return (
     <PublicLayout>
       <Container maxWidth='xl' sx={{ py: 4 }}>
@@ -42,12 +166,15 @@ export const EventDetails = () => {
           <Grid item lg={7}>
             <Box
               sx={{
-                background: `url( '/assets/events/event-1.jpg')`,
+                background: `url(${FILE_URL + raffle.image})`,
                 width: '100%',
-                height: '500px',
-                backgroundSize: 'cover',
+                height: '700px',
+                backgroundSize: 'contain',
                 backgroundPosition: 'center top',
                 position: 'relative',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor: '#ffffff',
+                backdropFilter: 'blur(10px)',
               }}
             >
               <Box
@@ -157,7 +284,8 @@ export const EventDetails = () => {
                   mb: 1,
                 }}
               >
-                15 Aug 2022
+                {raffle.end.getDate()} {MONTHS[raffle.end.getMonth()]}{' '}
+                {raffle.end.getFullYear()}
               </Typography>
               <Typography
                 variant='h2'
@@ -167,7 +295,7 @@ export const EventDetails = () => {
                   display: 'inline-block',
                 }}
               >
-                Netflix Headquarters Tour
+                {raffleDetails?.descriptionTitle || raffle?.name}
                 <Box
                   sx={{
                     ml: 4,
@@ -197,7 +325,7 @@ export const EventDetails = () => {
               </Typography>
 
               <Typography>
-                Hosted By <b>Netflix &amp; mind.t core</b>
+                Hosted By <b>...</b>
               </Typography>
               <Button
                 size='large'
@@ -206,12 +334,11 @@ export const EventDetails = () => {
               >
                 Follow
               </Button>
-
-              <Typography sx={{ opacity: 0.6 }}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet
-                ducimus vero, error fuga eius illo adipisci facilis? Obcaecati,
-                ducimus exercitationem?
-              </Typography>
+              {raffleDetails?.description && (
+                <Typography sx={{ opacity: 0.6 }}>
+                  {raffleDetails?.description}
+                </Typography>
+              )}
 
               <Box
                 sx={{
@@ -223,8 +350,13 @@ export const EventDetails = () => {
                   '& button': { fontWeight: 'bold', fontSize: '25px' },
                 }}
               >
-                <Button variant='contained' size='large'>
-                  Buy Ticket $100
+                <Button
+                  onClick={buyTikets}
+                  variant='contained'
+                  size='large'
+                  sx={{ textTransform: 'inherit !important' }}
+                >
+                  JOIN TICKET 1 (mDOT)
                 </Button>
                 <Button variant='outlined' size='large'>
                   Raffle $50
@@ -267,23 +399,64 @@ export const EventDetails = () => {
               obcaecati quas facilis? Quisquam incidunt officia aspernatur
               labore quis, totam velit maxime temporibus maiores!
             </Typography>
-            <br /> <br />
-            <Box
+
+            {/* <Box
               component='img'
               src='/assets/events/event-2.jpg'
               sx={{
                 width: '100%',
               }}
-            />
-            <Typography sx={{ opacity: 0.7 }}>
-              <br /> <br /> Tempore quidem quasi totam eaque ab aspernatur modi
-              corporis voluptatibus quas quae. Laudantium vitae nesciunt
-              voluptates numquam delectus animi repellendus? Repudiandae omnis
-              laborum soluta alias tempore dolor nulla ex, voluptate sed
-              doloremque eum ratione eaque vitae et aliquam fuga obcaecati quas
-              facilis? Quisquam incidunt officia aspernatur labore quis, totam
-              velit maxime temporibus maiores!
-            </Typography>
+            /> */}
+            {raffle.participants && (
+              <Box
+                sx={{
+                  mt: 3,
+                  border: '1px solid rgb(255 255 255 / 29%)',
+                  backgroundColor: 'rgb(0 0 0 / 56%)',
+                  p: 4,
+                  borderRadius: '0px',
+                  opacity: 0.7,
+                }}
+              >
+                <Typography
+                  component='h3'
+                  sx={{
+                    fontSize: '32px',
+                    borderBottom: '2px solid',
+                    marginBottom: '10px',
+                  }}
+                >
+                  All PARTICPANTS
+                </Typography>
+                {raffle?.participants?.map(
+                  (
+                    val: {
+                      owner: any | string;
+                      tickets: {} | null | undefined;
+                    },
+                    index: any
+                  ) => {
+                    return (
+                      <Box sx={{ my: 2 }}>
+                        <Grid container>
+                          <Grid item lg={8} md={5} xs={6}>
+                            <h5>wallet</h5>
+                            {val.owner.toString()}
+                          </Grid>
+                          <Grid item lg={2} md={5} xs={6}>
+                            <h5>Tickets</h5> {val.tickets}
+                          </Grid>
+                          <Grid item lg={2} md={5} xs={6}>
+                            <h5>total</h5>
+                            {Number(val.tickets) * raffle.price}
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    );
+                  }
+                )}
+              </Box>
+            )}
           </Grid>
 
           <Grid item lg={5}>

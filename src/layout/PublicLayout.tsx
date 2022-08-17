@@ -30,16 +30,16 @@ export const PublicLayout = ({ children }: any) => {
 
       <main className='main'>{children}</main>
 
-      <Box sx={{ backgruond: '#000', py: 4, textAlign: 'center' }}>
-        <Box sx={{ my: 1 }}>
-          <a>
+      <Box sx={{ background: '#0000005c', py: 2, mt: 5, textAlign: 'center' }}>
+        <Box>
+          <a href='https://twitter.com/mindotacademy' target='_blank'>
             <Box
-              sx={{ width: '40px' }}
+              sx={{ width: '50px', padding: '5px', background: '#000' }}
               component='img'
               src='/assets/twitter-2.png'
             ></Box>
           </a>
-          <a>
+          <a href='https://discord.gg/Kx2uuxgq' target='_blank'>
             <Box
               component='img'
               sx={{ width: '50px !important' }}
@@ -47,7 +47,6 @@ export const PublicLayout = ({ children }: any) => {
             ></Box>
           </a>
         </Box>
-        &copy; 2022 <b>mind.t</b>
       </Box>
     </Box>
   );

@@ -3,18 +3,40 @@ import ClassIcon from '@mui/icons-material/Class';
 import EventIcon from '@mui/icons-material/Event';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Grid,
+  Skeleton,
+  Typography,
+} from '@mui/material';
 import { useWallet } from '@solana/wallet-adapter-react';
 import numeral from 'numeral';
 import { useEffect, useState } from 'react';
+import { Raffle } from '../../contexts';
+import useRaffles from '../../hooks/useRaffles';
 import { PublicLayout } from '../../layout/PublicLayout';
+import { RaffleCard } from '../Raffles/Card/Card';
+import { CustomMessage } from '../Raffles/CustomMessage/CustomMessage';
 import { RaffleProfile } from '../Raffles/MyProfile/RaffleProfile';
-import { EventCard } from './Event/EventCard';
 
 export const Profile = () => {
   const { publicKey, connected } = useWallet();
   const [bailBalance, setBailBalance] = useState(0);
   const [openProfileModal, setOpenProfileModal] = useState(false);
+  const { raffles, loading } = useRaffles();
+  const [activeTab, setActiveTab] = useState(1);
+  const [opened, setOpened] = useState<Raffle[]>([]);
+  const [closed, setClosed] = useState<Raffle[]>([]);
+
+  useEffect(() => {
+    if (raffles.length) {
+      setOpened(raffles.filter((raffle) => !raffle.isClosed));
+      setClosed(raffles.filter((raffle) => raffle.isClosed));
+    }
+  }, [raffles.length]);
 
   const getTokenBalanceAndPrice = async () => {
     try {
@@ -46,7 +68,7 @@ export const Profile = () => {
     <PublicLayout>
       <Container maxWidth='xl'>
         <Grid container spacing={3} sx={{ py: 3 }}>
-          <Grid item lg={3}>
+          <Grid item lg={3} sx={{ mt: '100px' }}>
             <Box
               sx={{
                 background: '#000',
@@ -144,13 +166,108 @@ export const Profile = () => {
             </Box>
           </Grid>
           <Grid item lg={9}>
-            <Grid container spacing={4}>
-              {[...Array(6)].map((s, i) => (
-                <Grid item key={i} lg={6}>
-                  <EventCard />
+            <Box>
+              <Container>
+                <Grid container justifyContent='center'>
+                  <Grid item lg={12}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center ',
+                        mb: 5,
+                      }}
+                    >
+                      <ButtonGroup
+                        variant='contained'
+                        aria-label='outlined primary button group'
+                        size='large'
+                        sx={{
+                          button: {
+                            fontSize: '25px',
+                            p: 1,
+                            fontFamily: 'chartert',
+                          },
+                          width: { lg: '400px', sm: '100%' },
+                        }}
+                      >
+                        <Button
+                          onClick={() => setActiveTab(1)}
+                          variant={activeTab === 1 ? 'contained' : 'outlined'}
+                          fullWidth
+                        >
+                          Open
+                        </Button>
+                        <Button
+                          onClick={() => setActiveTab(2)}
+                          variant={activeTab === 2 ? 'contained' : 'outlined'}
+                          fullWidth
+                        >
+                          Closed
+                        </Button>
+                      </ButtonGroup>
+                    </Box>
+                  </Grid>
                 </Grid>
-              ))}
-            </Grid>
+
+                <Box sx={{ display: activeTab === 1 ? 'block' : 'none' }}>
+                  <Grid container spacing={3}>
+                    {!opened.length && loading ? (
+                      [...Array(6)].map((s, i) => (
+                        <Grid item lg={6} key={i}>
+                          <Skeleton
+                            sx={{
+                              height: '600px',
+                              transform: 'scale(1)',
+                              width: '100%',
+                              borderRadius: '0px',
+                              background: 'rgb(24 21 18)',
+                            }}
+                            animation='wave'
+                          />
+                        </Grid>
+                      ))
+                    ) : opened.length ? (
+                      opened.map((raffle, index) => (
+                        <Grid item md={6} lg={6} key={index}>
+                          <RaffleCard raffle={raffle} />
+                        </Grid>
+                      ))
+                    ) : (
+                      <CustomMessage message='No Events Found' />
+                    )}
+                  </Grid>
+                </Box>
+                <Box sx={{ display: activeTab === 2 ? 'block' : 'none' }}>
+                  <Grid container spacing={3}>
+                    {!closed.length && loading ? (
+                      [...Array(6)].map((s, i) => (
+                        <Grid item lg={6} key={i}>
+                          <Skeleton
+                            sx={{
+                              height: '700px',
+                              transform: 'scale(1)',
+                              width: '100%',
+                              borderRadius: '0px',
+                              background: 'rgb(24 21 18)',
+                            }}
+                            animation='wave'
+                          />
+                        </Grid>
+                      ))
+                    ) : closed.length ? (
+                      closed.map((raffle, index) => (
+                        <Grid item md={6} lg={6} key={index}>
+                          <RaffleCard raffle={raffle} />
+                        </Grid>
+                      ))
+                    ) : (
+                      <CustomMessage message='No Events Found' />
+                    )}
+                  </Grid>
+                </Box>
+              </Container>
+            </Box>
           </Grid>
         </Grid>
       </Container>

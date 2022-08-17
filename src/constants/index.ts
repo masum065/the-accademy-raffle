@@ -46,6 +46,7 @@ const mainnetConstants = {
   ),
   rafflesKey: new anchor.web3.PublicKey(
     '2z7YMP4LZgtfd765v9pvXNzqr2PAdNmjee3kNgSkNGEG'
+    // 'DfqH1CPV3aEj5Vncoahbx37apzsBhEEGwtiE9Y6RUFDP'
   ),
 };
 const constants = MAINNET ? mainnetConstants : devnetConstants;
