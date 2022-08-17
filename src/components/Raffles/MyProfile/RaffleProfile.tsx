@@ -7,7 +7,6 @@ import useApi from '../../../hooks/useApi';
 import useRaffles from '../../../hooks/useRaffles';
 import { MyProfile } from '../../MyProfile/MyProfile';
 import { MyEntries } from './MyEntries/MyEntries';
-import { MyWins } from './MyWins/MyWins';
 
 const MONTHS = [
   'January',
@@ -99,8 +98,9 @@ export const RaffleProfile = ({
       sx={{
         '.MuiPaper-root': {
           maxWidth: 'inherit',
-          backgroundColor: '#4e4e4e',
+          backgroundColor: '#4e4e4e4f',
           color: '#fff',
+          backdropFilter: 'blur(25px)',
         },
       }}
     >
@@ -118,12 +118,6 @@ export const RaffleProfile = ({
           >
             My Entries
           </Button>
-          <Button
-            variant={tabActive === 3 ? 'contained' : 'outlined'}
-            onClick={() => setTabActive(3)}
-          >
-            My Wins
-          </Button>
         </ButtonGroup>
 
         {tabActive === 2 ? (
@@ -131,7 +125,7 @@ export const RaffleProfile = ({
         ) : tabActive === 1 ? (
           <MyProfile></MyProfile>
         ) : (
-          <MyWins myWins={myWins} MONTHS={MONTHS} />
+          ''
         )}
       </DialogContent>
     </Dialog>

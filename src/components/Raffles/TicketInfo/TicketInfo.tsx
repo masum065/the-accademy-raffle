@@ -9,9 +9,9 @@ export const TicketInfo = ({ raffle }: any) => {
       icon: '/assets/ticket.png',
     },
     {
-      title: '$Coin Collected',
+      title: '$Token Collected',
       count: raffle?.tickets * raffle?.price || 0,
-      icon: '/assets/fuji.png',
+      icon: '/assets/token.png',
     },
     {
       title: 'Unique Wallets',

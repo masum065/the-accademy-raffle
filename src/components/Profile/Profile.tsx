@@ -82,9 +82,6 @@ export const Profile = () => {
                       </Box>
                     </Box>
                     <Box>
-                      <Typography sx={{ color: '#a87754', mb: '-10px' }}>
-                        Coin Balance
-                      </Typography>
                       <Typography sx={{ fontSize: '2.2rem', fontWeight: 700 }}>
                         {numeral(bailBalance).format('0,0')}
                       </Typography>

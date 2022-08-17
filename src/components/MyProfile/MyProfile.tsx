@@ -1,6 +1,7 @@
 import UploadIcon from '@mui/icons-material/Upload';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { WalletMultiButton } from '@solana/wallet-adapter-material-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 
 export const MyProfile = () => {
@@ -16,7 +17,27 @@ export const MyProfile = () => {
           textAlign: 'center',
         }}
       >
-        My Profile
+        <Box
+          sx={{
+            button: {
+              '&:hover': {
+                backgroundColor: 'transparent',
+                boxShadow: 'none',
+              },
+              cursor: 'unset',
+              backgroundColor: 'transparent',
+              fontFamily: 'Colfax !important',
+              boxShadow: 'none',
+              fontSize: '25px',
+              '& img': {
+                width: '32px',
+                height: '32px',
+              },
+            },
+          }}
+        >
+          <WalletMultiButton></WalletMultiButton>
+        </Box>
       </Typography>
       <Box
         sx={{
@@ -77,7 +98,6 @@ export const MyProfile = () => {
               }}
             />
 
-            {/* <Grid item lg={4}> */}
             <Box
               sx={{
                 display: 'flex',
@@ -96,29 +116,15 @@ export const MyProfile = () => {
                 Resume
               </Button>
               <Button fullWidth variant='outlined' size='large'>
-                Claim Token
+                Claim 1{' '}
+                <Box
+                  component='img'
+                  src='/assets/bail.png'
+                  sx={{ maxWidth: '100%', width: '20px', marginLeft: '5px' }}
+                />
               </Button>
             </Box>
-            {/* </Grid> */}
           </Grid>
-
-          {/* <Grid item lg={4}>
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 5 }}
-            >
-              <Button
-                fullWidth
-                variant='outlined'
-                size='large'
-                startIcon={<UploadIcon />}
-              >
-                Upload a Resume
-              </Button>
-              <Button fullWidth variant='outlined' size='large'>
-                Claim Free Token
-              </Button>
-            </Box>
-          </Grid> */}
         </Grid>
       </Box>
     </>
