@@ -2,9 +2,12 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Container, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import { WalletMultiButton } from '@solana/wallet-adapter-material-ui';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { RaffleProfile } from '../Raffles/MyProfile/RaffleProfile';
 
 export const Navbar = () => {
+  const [openProfileModal, setOpenProfileModal] = useState(false);
   return (
     <Box
       sx={{
@@ -57,13 +60,14 @@ export const Navbar = () => {
                 {/* {navItems.map((nav) => ( */}
 
                 <Link to='/'>Home</Link>
+                <Link to='/events'>Events</Link>
                 <Link to='/raffles'>Demo</Link>
               </Box>
               <Box
-                component={Link}
-                to='/profile'
+                onClick={() => setOpenProfileModal(!openProfileModal)}
                 sx={{
-                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  borderRadius: '50% !important',
                   border: '2px solid #fff',
                   '& svg': { height: '1.2em', width: '1.2em' },
                 }}
@@ -85,6 +89,11 @@ export const Navbar = () => {
           </Grid>
         </Grid>
       </Container>
+
+      <RaffleProfile
+        open={openProfileModal}
+        onClose={() => setOpenProfileModal(false)}
+      />
     </Box>
   );
 };

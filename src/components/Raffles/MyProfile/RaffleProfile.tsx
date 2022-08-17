@@ -116,7 +116,7 @@ export const RaffleProfile = ({
             variant={tabActive === 2 ? 'contained' : 'outlined'}
             onClick={() => setTabActive(2)}
           >
-            My Entries
+            MY EVENTS
           </Button>
         </ButtonGroup>
 

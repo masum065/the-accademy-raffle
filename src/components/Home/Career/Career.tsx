@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 export const Career = () => {
@@ -102,7 +102,72 @@ export const Career = () => {
             HOW OUR LIVE SESSIONS WITH PANELISTS WORK
           </Typography>
         </Box>
+
+        <Grid container>
+          {workData.map((data) => (
+            <>
+              <Grid
+                item
+                lg={3}
+                sx={{
+                  borderRight: '1px solid #fff',
+                  borderBottom: '1px solid #fff',
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  fontWeight: 700,
+                  fontSize: '20px',
+                  p: 3,
+                }}
+              >
+                {data.title}
+              </Grid>
+              <Grid
+                item
+                lg={7}
+                sx={{
+                  borderBottom: '1px solid #fff',
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center',
+                  p: 3,
+                  letterSpacing: '3px',
+                }}
+              >
+                {data.description}
+              </Grid>
+            </>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );
 };
+
+const workData = [
+  {
+    title: 'Opening talk with panelists',
+    description:
+      'Each live session opens with a talk from leaders in their respective field. Engineers, designers, and executives in leading companies and organizations - spiritual teachers and artists from every decipline and practice.',
+  },
+  {
+    title: 'Round table discussion',
+    description:
+      'Each live session opens with a talk from leaders in their respective field. Engineers, designers, and executives in leading companies and organizations - spiritual teachers and artists from every decipline and practice.',
+  },
+  {
+    title: 'Design challenge / growth excercise',
+    description:
+      'Each live session opens with a talk from leaders in their respective field. Engineers, designers, and executives in leading companies and organizations - spiritual teachers and artists from every decipline and practice.',
+  },
+  {
+    title: 'Presentation of work by students',
+    description:
+      'Each live session opens with a talk from leaders in their respective field. Engineers, designers, and executives in leading companies and organizations - spiritual teachers and artists from every decipline and practice.',
+  },
+  {
+    title: 'Reverse roundtable & awards',
+    description:
+      'Each live session opens with a talk from leaders in their respective field. Engineers, designers, and executives in leading companies and organizations - spiritual teachers and artists from every decipline and practice.',
+  },
+];

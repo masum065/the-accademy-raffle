@@ -29,6 +29,26 @@ export const PublicLayout = ({ children }: any) => {
       <Navbar />
 
       <main className='main'>{children}</main>
+
+      <Box sx={{ backgruond: '#000', py: 4, textAlign: 'center' }}>
+        <Box sx={{ my: 1 }}>
+          <a>
+            <Box
+              sx={{ width: '40px' }}
+              component='img'
+              src='/assets/twitter-2.png'
+            ></Box>
+          </a>
+          <a>
+            <Box
+              component='img'
+              sx={{ width: '50px !important' }}
+              src='/assets/discord.jpg'
+            ></Box>
+          </a>
+        </Box>
+        &copy; 2022 <b>mind.t</b>
+      </Box>
     </Box>
   );
 };

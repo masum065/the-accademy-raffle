@@ -45,8 +45,12 @@ const mainnetConstants = {
     '9B399iD1kFwEW7qQo9YuioSMdiXFW9GSp2nZH57GxTUk'
   ),
   rafflesKey: new anchor.web3.PublicKey(
-    'DfqH1CPV3aEj5Vncoahbx37apzsBhEEGwtiE9Y6RUFDP'
+    '2z7YMP4LZgtfd765v9pvXNzqr2PAdNmjee3kNgSkNGEG'
   ),
 };
 const constants = MAINNET ? mainnetConstants : devnetConstants;
 export default constants;
+
+// "program": "9hvbUZdLfqeQgSQ1JddJy3CedXwpZXVGfJngMG2j58b9",
+//     "projectKey": "2z7YMP4LZgtfd765v9pvXNzqr2PAdNmjee3kNgSkNGEG",
+//     "password": "jnual858",
