@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Raffle } from '../../contexts';
 import useRaffles from '../../hooks/useRaffles';
-import { PublicLayout } from '../../layout/PublicLayout';
+import { PublicLayout } from '../../layouts/PublicLayout';
 import { RaffleCard } from './Card/Card';
 import { CustomMessage } from './CustomMessage/CustomMessage';
 
@@ -26,8 +26,6 @@ export const Raffles = () => {
       setClosed(raffles.filter((raffle) => raffle.isClosed));
     }
   }, [raffles.length]);
-
-  console.log(raffles, opened, closed);
 
   return (
     <PublicLayout>

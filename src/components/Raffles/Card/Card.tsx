@@ -34,7 +34,6 @@ export const RaffleCard = ({ raffle }: { raffle: Raffle }) => {
     return () => clearInterval(interval);
   }, [date]);
 
-  console.log(raffle);
   return (
     <Box
       sx={{

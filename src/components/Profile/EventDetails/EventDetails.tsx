@@ -15,7 +15,7 @@ import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import useApi, { FILE_URL } from '../../../hooks/useApi';
 import useRaffles from '../../../hooks/useRaffles';
-import { PublicLayout } from '../../../layout/PublicLayout';
+import { PublicLayout } from '../../../layouts/PublicLayout';
 import { MONTHS } from '../../Raffles/MyProfile/RaffleProfile';
 
 export const EventDetails = () => {
@@ -51,9 +51,6 @@ export const EventDetails = () => {
   useEffect(() => {
     fetchRaffleDetails();
   }, [fetchRaffleDetails]);
-  useEffect(() => {
-    console.log({ winners, myEntry, raffle, raffleDetails });
-  }, [winners, myEntry, raffle, raffleDetails]);
 
   const fetchMyEntryDetails = useCallback(async () => {
     if (!key) return;
@@ -173,8 +170,9 @@ export const EventDetails = () => {
                 backgroundPosition: 'center top',
                 position: 'relative',
                 backgroundRepeat: 'no-repeat',
-                backgroundColor: '#ffffff',
+                backgroundColor: '#000',
                 backdropFilter: 'blur(10px)',
+                border: '1px solid #333',
               }}
             >
               <Box

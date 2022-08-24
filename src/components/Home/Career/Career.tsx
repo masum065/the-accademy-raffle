@@ -8,21 +8,22 @@ export const Career = () => {
         maxWidth='xl'
         sx={{
           position: 'relative',
-          borderLeft: '2px solid #ffffff4f',
-          marginTop: '55px',
+          borderLeft: '2px solid #000000a8',
+          marginTop: '170px',
+          marginBottom: '100px',
         }}
       >
         <Typography
           sx={{
             position: 'absolute',
-            top: '-55px',
+            top: '-70px',
             left: '40px',
-            fontSize: '31px',
+            fontSize: '38px',
             fontFamily: "'chartert' !important",
             '&::before': {
               content: "''",
               left: '-48px',
-              top: '50%',
+              top: '40%',
               height: '15px',
               width: '15px',
               background: '#4EA5B8',
@@ -36,70 +37,73 @@ export const Career = () => {
         <Box sx={{ pl: '20px' }}>
           <Typography
             sx={{
-              lineHeight: '2 !important',
-              letterSpacing: '5px',
-              textTransform: 'lowercase',
-              fontSize: '20px',
+              pt: 4,
+              lineHeight: '1.7 !important',
+              letterSpacing: '2px',
+              fontSize: '32px',
+              fontWeight: 300,
+              fontFamily: 'inherit',
               '& span': { color: '#CF7B3E' },
             }}
           >
-            <span>THE UNIVERSITY SYSTEM IN THE WEST IS BROKEN.</span> WE ARE
-            EITHER RICH ENOUGH TO HAVE FAMILIES THAT FUND HIGHER EDUCATION, TOO
-            POOR TO AFFORD IT, OR SOMEWHERE IN THE MIDDLE - FORCED TO TAKE ON
-            UNREASONABLE DEBT TO STAY WITHIN THE SYSTEM. REGARDLESS OF THEIR
-            FINACIAL STAKE, THOSE OUTSIDE THE UPPER CLASS WATCH THE ELITE
-            INTERNSHIP OPPORTUNITIES BE TAKEN BY THE STUDENTS THAT HAD THE
-            CONNECTIONS IN THE FIRST PLACE. THE ACADEMY IS HERE TO OFFER ALL
-            THOSE WITH CURIOSITY AND DRIVE AN ALTERNATIVE TO THE CURRENT
-            PARADIGM.
-          </Typography>
-
-          <Typography
-            sx={{
-              color: '#CF7B3E',
-              fontSize: '22px',
-              fontWeight: 'bold',
-              fontStyle: 'italic',
-              my: 3,
-            }}
-          >
-            SKIP SERVING THEM COFFEE, CREATE WITH OUR PARTNERS IMMEDIATLEY.
+            <span>
+              At The Accademy, the companies and organizations you want to work
+              with are the companies and organizations that teach you.{' '}
+            </span>
+            There is no middle-man, our mentors are the engineers, scientists,
+            designers and artistsmaking the decisions that shape our worlds
+            cultures and economies.
           </Typography>
 
           <Box
             component='img'
-            src='/assets/MindotSupporters-2.png'
+            src='/assets/MindotSupporters.png'
             sx={{ maxWidth: '100%', my: 4 }}
           />
 
           <Typography
             sx={{
-              lineHeight: '2 !important',
-              letterSpacing: '5px',
-              textTransform: 'lowercase',
-              fontSize: '20px',
+              color: '#CF7B3E',
+              fontSize: '35px',
+              fontWeight: 500,
+              fontStyle: 'italic',
+              fontFamily: 'inherit',
+              my: 5,
+            }}
+          >
+            Skip serving them coffee, create with the world’s most influencial
+            companies and organizations immediately.
+          </Typography>
+          <Typography
+            sx={{
+              lineHeight: '1.7 !important',
+              letterSpacing: '2px',
+              fontSize: '32px',
+              fontWeight: 300,
+              fontFamily: 'inherit',
               mt: 2,
               '& span': { color: '#CF7B3E' },
             }}
           >
-            THE ACADEMY PROVIDES DIRECT COMMUNICATION AND CREATIVE COLABORATION
-            WITH THE EMPLOYEES AND EXECUTIVES OF THE WORLDS MOST INFLUENCIAL
-            ORGANIZATIONS. SKIP THE PROCESS OF LEARNING THEIR METHODS OR HOW TO
-            WORK FOR THEM FROM DISCONNECTED ACADEMICS AND SELF HELP INFLUENCERS.
-            WE KNOW THEM PERSONALLY, AND THEY WANT TO KNOW OUR MOST PASSIONATE
-            STUDENTS TOO.
+            Each Accademy session involves a focused, live colaboration session
+            with panelists from the companies listed above. Students have
+            achance to show their creativity and brilliance to the worlds
+            leading thinkers directly.
           </Typography>
 
           <Typography
             sx={{
               color: '#CF7B3E',
-              fontSize: '22px',
-              fontWeight: 'bold',
+              fontSize: '35px',
+              fontWeight: 500,
               fontStyle: 'italic',
-              py: 4,
+              fontFamily: 'inherit',
+
+              my: 5,
+              mt: 8,
             }}
           >
-            HOW OUR LIVE SESSIONS WITH PANELISTS WORK
+            Live session brekdown:
           </Typography>
         </Box>
 
@@ -110,13 +114,13 @@ export const Career = () => {
                 item
                 lg={3}
                 sx={{
-                  borderRight: '1px solid #fff',
-                  borderBottom: '1px solid #fff',
+                  borderRight: '1px solid #000',
+                  borderBottom: '1px solid #000',
                   display: 'flex',
                   justifyContent: 'flex-start',
                   alignItems: 'center',
-                  fontWeight: 700,
-                  fontSize: '20px',
+                  fontWeight: 500,
+                  fontSize: '30px',
                   p: 3,
                 }}
               >
@@ -126,12 +130,14 @@ export const Career = () => {
                 item
                 lg={7}
                 sx={{
-                  borderBottom: '1px solid #fff',
+                  borderBottom: '1px solid #000',
                   display: 'flex',
                   justifyContent: 'flex-start',
                   alignItems: 'center',
                   p: 3,
                   letterSpacing: '3px',
+                  fontSize: '26px',
+                  fontFamily: 'inherit',
                 }}
               >
                 {data.description}

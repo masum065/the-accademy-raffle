@@ -15,7 +15,7 @@ import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import useApi, { FILE_URL } from '../../../hooks/useApi';
 import useRaffles from '../../../hooks/useRaffles';
-import { PublicLayout } from '../../../layout/PublicLayout';
+import { PublicLayout } from '../../../layouts/PublicLayout';
 import { TicketInfo } from '../TicketInfo/TicketInfo';
 
 const RaffleDetailsPage = () => {
@@ -50,9 +50,6 @@ const RaffleDetailsPage = () => {
   useEffect(() => {
     fetchRaffleDetails();
   }, [fetchRaffleDetails]);
-  useEffect(() => {
-    console.log({ winners, myEntry, raffle, raffleDetails });
-  }, [winners, myEntry, raffle, raffleDetails]);
 
   const fetchMyEntryDetails = useCallback(async () => {
     if (!key) return;

@@ -1,6 +1,6 @@
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { PublicLayout } from '../layout/PublicLayout';
+import { PublicLayout } from '../layouts/PublicLayout';
 const CardData = [
   {
     title: 'Stoned Ape Crew',

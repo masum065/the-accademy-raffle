@@ -15,18 +15,13 @@ import { clusterApiUrl, Connection } from '@solana/web3.js';
 import { useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import AppOrig from './App';
 import './assets/fonts/MonumentExtended/monument.css';
 import './assets/fonts/pixeboy/pixeboy.css';
 import { Home } from './components/Home/Home';
-import { MyProfile } from './components/MyProfile/MyProfile';
 import { EventDetails } from './components/Profile/EventDetails/EventDetails';
-import { Profile } from './components/Profile/Profile';
-import RaffleDetailsPage from './components/Raffles/Details/Details';
-import { Raffles } from './components/Raffles/Raffles';
+import { Events } from './components/Profile/Events';
 import { RPC_CONFIG } from './config';
 import RafflesProvider from './contexts/Providers';
-import Auctions from './pages/auctions';
 import { theme } from './theme';
 
 const App = () => {
@@ -56,20 +51,12 @@ const App = () => {
             <RafflesProvider connection={connection}>
               <BrowserRouter>
                 <Routes>
-                  <Route path='/auctions' element={<Auctions />} />
-                  <Route path='/raffles' element={<Raffles />} />
-                  <Route path='/events' element={<Profile />} />
                   <Route
                     path='/event-details/:key'
                     element={<EventDetails />}
                   />
-                  <Route path='/my-profile' element={<MyProfile />} />
                   <Route path='/' element={<Home />} />
-                  <Route path='/wallet' element={<AppOrig />} />
-                  <Route
-                    path='/raffle-details/:key'
-                    element={<RaffleDetailsPage />}
-                  />
+                  <Route path='/events' element={<Events />} />
                 </Routes>
               </BrowserRouter>
             </RafflesProvider>

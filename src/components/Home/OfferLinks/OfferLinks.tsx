@@ -11,11 +11,11 @@ const offerLinks = [
     url: '#',
   },
   {
-    label: 'PROJECT FUNDING',
+    label: 'MEMBER-GOVERNED ORGANIZATION  STRUCTURE',
     url: '#',
   },
   {
-    label: 'PERSONAL DEVELOPMENT',
+    label: 'EXCLUSIVE NETWORKING',
     url: '#',
   },
   {
@@ -26,40 +26,40 @@ const offerLinks = [
 
 export const OfferLinks = () => {
   return (
-    <Container maxWidth='xl' sx={{ py: '100px' }}>
-      <Grid container>
-        <Grid item lg={7}>
+    <Container maxWidth='xl' sx={{ py: 5 }}>
+      <Grid container spacing={4}>
+        <Grid item lg={2}>
           <Typography
-            sx={{ fontSize: '44px', fontFamily: "'chartert' !important" }}
+            sx={{
+              fontSize: '45px',
+              fontFamily: "'chartert' !important",
+              color: '#CF7B3E',
+              fontWeight: 600,
+            }}
           >
             WHAT WE OFFER
           </Typography>
-
+        </Grid>
+        <Grid item lg={10}>
           <Box
             sx={{
-              mt: 2,
+              mt: '5px',
               '& a': {
                 '&:hover': {
                   color: '#4EA5B8 !important',
                 },
-                fontSize: '23px',
-                marginRight: '40px',
-                position: 'relative',
-                '&::before': {
-                  content: "''",
-                  position: 'absolute',
-                  top: '5px',
-                  left: '-18px',
-                  height: '7px',
-                  width: '7px',
-                  background: '#CF7B3E',
-                  borderRadius: '50%',
-                },
+                fontSize: '31px',
+                marginRight: '20px',
               },
             }}
           >
             {offerLinks.map((offer) => (
               <Box key={offer.label} component='a' href={offer.url}>
+                <Box
+                  component='img'
+                  src='/assets/arrow-up.png'
+                  sx={{ maxWidth: '25px' }}
+                />{' '}
                 {offer.label}
               </Box>
             ))}

@@ -1,85 +1,58 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
+import { Navbar } from '../../Navbar/Navbar';
+import { OfferLinks } from '../OfferLinks/OfferLinks';
 
 export const Hero = () => {
   return (
     <Box
       sx={{
         background: `url('/assets/bg.png')`,
+        backgroundColor: '#050505',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      <Box
-        component='img'
-        src='/assets/student-circle.png'
-        sx={{
-          maxWidth: '680px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          right: '-5%',
-          position: 'absolute',
-        }}
-      />
+      <Navbar secondLogo={true} />
       <Container maxWidth='xl' sx={{ py: 6 }}>
         <Grid container>
           <Grid item lg={12}>
             <Typography
               variant='h1'
               sx={{
-                fontWeight: 'bold',
+                fontWeight: 500,
                 letterSpacing: '10px',
                 lineHeight: 1,
-                fontSize: '7rem',
-                mb: 3,
-                mt: 2,
+                fontSize: '11rem',
+                textAlign: 'left',
+                mb: 5,
+                mt: 8,
+                textTransform: 'uppercase',
               }}
             >
-              CREATIVY &amp; <br />
-              DRIVE
-            </Typography>
-            <Typography sx={{ color: '#CF7B3E' }} variant='h4'>
-              Valued &amp; cultivated.
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '23px',
-                maxWidth: '53%',
-                fontWeight: 100,
-                fontStyle: 'italic',
-                marginTop: '45px',
-                '& b': { fontWeight: 'bold !important' },
-              }}
-            >
-              <b>The Academy</b> bridges the gap between students and industry
-              leaders through direct communication and creative collaboration.
-              We offer effective career curation &amp; project funding outside
-              the higher education system.
+              The Academy
             </Typography>
 
-            <Box
+            <Typography
               sx={{
-                mt: 5,
-                pb: 5,
-                '& button': {
-                  mr: 3,
-                  fontSize: '30px',
-                  lineHeight: 1,
-                  borderBottom: '1px solid',
-                  padding: '10px 0',
-                  '&:hover': {
-                    borderColor: '#4EA5B8',
-                  },
-                },
+                fontFamily: 'inherit',
+                color: '#fff',
+                fontWeight: 300,
+                fontStyle: 'italic',
+                fontSize: '42px',
+                maxWidth: '85%',
+                lineHeight: 1.1,
+                mt: 12,
+                mb: 4,
               }}
             >
-              <Button>APPLY NOW</Button>
-              <Button sx={{ borderBottom: '1px solid transparent' }}>
-                LEARN MORE
-              </Button>
-            </Box>
+              An alternative method of career curation and project funding for
+              the innovators of tomorrow.
+            </Typography>
+
+            <OfferLinks />
           </Grid>
         </Grid>
       </Container>

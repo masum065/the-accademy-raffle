@@ -6,12 +6,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RaffleProfile } from '../Raffles/MyProfile/RaffleProfile';
 
-export const Navbar = () => {
+export const Navbar = ({ secondLogo }: { secondLogo?: Boolean }) => {
   const [openProfileModal, setOpenProfileModal] = useState(false);
   return (
     <Box
       sx={{
-        padding: '30px 0',
+        padding: '45px 0',
       }}
     >
       <Container maxWidth='xl'>
@@ -19,20 +19,36 @@ export const Navbar = () => {
           <Grid lg={3}>
             <Box
               sx={{
-                img: { maxWidth: '50px' },
                 a: { display: 'flex', alignItems: 'center', gap: 2.2 },
                 h2: {
                   fontWeight: '600',
                   m: 0,
                   fontSize: '34px',
                   letterSpacing: '2.3px',
+                  opacity: 0.6,
                 },
               }}
             >
-              <Link to='/'>
-                <img src='/assets/logo.png' alt='logo' />
-                <h2>THE ACADEMY</h2>
-              </Link>
+              {secondLogo ? (
+                <Link to='/'>
+                  <Box
+                    component='img'
+                    sx={{ maxWidth: '160px' }}
+                    src='/assets/mind-logo.png'
+                    alt='logo'
+                  />
+                </Link>
+              ) : (
+                <Link to='/'>
+                  <Box
+                    component='img'
+                    sx={{ maxWidth: '38px' }}
+                    src='/assets/logo.png'
+                    alt='logo'
+                  />
+                  <h2>THE ACADEMY</h2>
+                </Link>
+              )}
             </Box>
           </Grid>
           <Grid lg={9}>
@@ -57,11 +73,8 @@ export const Navbar = () => {
                   },
                 }}
               >
-                {/* {navItems.map((nav) => ( */}
-
                 <Link to='/'>Home</Link>
                 <Link to='/events'>Events</Link>
-                {/* <Link to='/raffles'>Demo</Link> */}
               </Box>
               <Box
                 onClick={() => setOpenProfileModal(!openProfileModal)}
@@ -69,6 +82,7 @@ export const Navbar = () => {
                   cursor: 'pointer',
                   borderRadius: '50% !important',
                   border: '2px solid #fff',
+                  color: '#fff !important',
                   '& svg': { height: '1.2em', width: '1.2em' },
                 }}
               >
